@@ -4,7 +4,7 @@ Proyecto académico desarrollado bajo arquitectura MVC y Programación Orientada
 
 ## Tecnologías
 
-- Python
+- java
 - MySQL
 - CustomTkinter
 - GitHub
@@ -13,7 +13,7 @@ Proyecto académico desarrollado bajo arquitectura MVC y Programación Orientada
 
 Ejecutar:
 
-database/censo_inegi_coahuila.sql
+database/censo_inegi.sql
 
 ## Funcionalidades
 
