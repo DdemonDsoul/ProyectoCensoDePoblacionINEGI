@@ -92,6 +92,6 @@ src/
 
 ## Integrantes
 
-- Esteban
-- [Nombre integrante]
-- [Nombre integrante]
+- Esteban Belmontes Trejo
+- Ana Claudia Garcia solis
+- David
