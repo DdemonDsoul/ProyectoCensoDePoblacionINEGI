@@ -1,8 +1,3 @@
--- ==========================================
--- PROYECTO: CENSO DE POBLACIÓN INEGI
--- BASE DE DATOS: censo_inegi
--- ==========================================
-
 DROP DATABASE IF EXISTS censo_inegi;
 
 CREATE DATABASE censo_inegi
@@ -11,9 +6,9 @@ COLLATE utf8mb4_unicode_ci;
 
 USE censo_inegi;
 
--- ==========================================
+-- =====================================
 -- TABLA USUARIO
--- ==========================================
+-- =====================================
 
 CREATE TABLE usuario (
     id_usuario INT AUTO_INCREMENT PRIMARY KEY,
@@ -22,9 +17,9 @@ CREATE TABLE usuario (
     nombre_completo VARCHAR(150) NOT NULL
 );
 
--- ==========================================
+-- =====================================
 -- TABLA MUNICIPIO
--- ==========================================
+-- =====================================
 
 CREATE TABLE municipio (
     id_municipio INT AUTO_INCREMENT PRIMARY KEY,
@@ -32,42 +27,43 @@ CREATE TABLE municipio (
     nombre VARCHAR(100) NOT NULL
 );
 
--- ==========================================
+-- =====================================
 -- TABLA LOCALIDAD
--- ==========================================
+-- =====================================
 
 CREATE TABLE localidad (
     id_localidad INT AUTO_INCREMENT PRIMARY KEY,
     id_municipio INT NOT NULL,
     clave_localidad VARCHAR(10),
     nombre VARCHAR(150) NOT NULL,
+    ambito VARCHAR(20) NOT NULL,
 
     CONSTRAINT fk_localidad_municipio
     FOREIGN KEY (id_municipio)
     REFERENCES municipio(id_municipio)
 );
 
--- ==========================================
+-- =====================================
 -- TABLA TIPO VIVIENDA
--- ==========================================
+-- =====================================
 
 CREATE TABLE tipo_vivienda (
     id_tipo_vivienda INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL
 );
 
--- ==========================================
+-- =====================================
 -- TABLA ACTIVIDAD ECONOMICA
--- ==========================================
+-- =====================================
 
 CREATE TABLE actividad_economica (
     id_actividad INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL
 );
 
--- ==========================================
+-- =====================================
 -- TABLA VIVIENDA
--- ==========================================
+-- =====================================
 
 CREATE TABLE vivienda (
     id_vivienda INT AUTO_INCREMENT PRIMARY KEY,
@@ -95,9 +91,9 @@ CREATE TABLE vivienda (
     REFERENCES tipo_vivienda(id_tipo_vivienda)
 );
 
--- ==========================================
+-- =====================================
 -- TABLA HABITANTE
--- ==========================================
+-- =====================================
 
 CREATE TABLE habitante (
     id_habitante INT AUTO_INCREMENT PRIMARY KEY,
@@ -125,9 +121,9 @@ CREATE TABLE habitante (
     REFERENCES vivienda(id_vivienda)
 );
 
--- ==========================================
+-- =====================================
 -- TABLA HABITANTE ACTIVIDAD
--- ==========================================
+-- =====================================
 
 CREATE TABLE habitante_actividad (
     id_habitante_actividad INT AUTO_INCREMENT PRIMARY KEY,
@@ -145,151 +141,3 @@ CREATE TABLE habitante_actividad (
     FOREIGN KEY (id_actividad)
     REFERENCES actividad_economica(id_actividad)
 );
-
--- ==========================================
--- TABLA VIVIENDA ACTIVIDAD
--- ==========================================
-
-CREATE TABLE vivienda_actividad (
-    id_vivienda_actividad INT AUTO_INCREMENT PRIMARY KEY,
-
-    id_vivienda INT NOT NULL,
-    id_actividad INT NOT NULL,
-
-    CONSTRAINT fk_va_vivienda
-    FOREIGN KEY (id_vivienda)
-    REFERENCES vivienda(id_vivienda),
-
-    CONSTRAINT fk_va_actividad
-    FOREIGN KEY (id_actividad)
-    REFERENCES actividad_economica(id_actividad)
-);
-
--- ==========================================
--- USUARIO ADMINISTRADOR DE PRUEBA
--- ==========================================
-
-INSERT INTO usuario
-(usuario,password,nombre_completo)
-VALUES
-('admin','123456','Administrador General');
-
--- ==========================================
--- TIPOS DE VIVIENDA
--- ==========================================
-
-INSERT INTO tipo_vivienda (nombre)
-VALUES
-('Concreto'),
-('Adobe Antiguo'),
-('Ladrillo'),
-('Madera'),
-('Cartón'),
-('Piedra'),
-('Prefabricada'),
-('Material Ecológico'),
-('Paja, Ramas o Caña'),
-('Adobe Moderno');
-
--- ==========================================
--- ACTIVIDADES ECONÓMICAS
--- ==========================================
-
-INSERT INTO actividad_economica (nombre)
-VALUES
-('Comerciante'),
-('Empleado'),
-('Profesor'),
-('Ingeniero'),
-('Medico'),
-('Agricultor'),
-('Ganadero'),
-('Taxista'),
-('Albanil'),
-('Estudiante');
-
--- ==========================================
--- MUNICIPIOS DE PRUEBA
--- ==========================================
-
-INSERT INTO municipio
-(clave_municipio,nombre)
-VALUES
-('001','Abasolo'),
-('002','Acuña'),
-('018','Monclova'),
-('030','Saltillo'),
-('035','Torreón');
-
--- ==========================================
--- LOCALIDADES DE PRUEBA
--- ==========================================
-
-INSERT INTO localidad
-(id_municipio,clave_localidad,nombre)
-VALUES
-(4,'0001','Saltillo Centro'),
-(4,'0002','Ramos Arizpe'),
-(5,'0001','Torreón Centro'),
-(3,'0001','Monclova Centro');
-
--- ==========================================
--- VIVIENDAS DE PRUEBA
--- ==========================================
-
-INSERT INTO vivienda
-(
-id_localidad,
-id_tipo_vivienda,
-calle,
-numero,
-colonia,
-num_habitaciones,
-agua,
-luz,
-drenaje,
-internet
-)
-VALUES
-(1,1,'Juarez','123','Centro',4,1,1,1,1),
-(2,3,'Allende','456','Republica',3,1,1,1,1),
-(3,2,'Morelos','789','Centro',2,1,1,0,1);
-
--- ==========================================
--- HABITANTES DE PRUEBA
--- ==========================================
-
-INSERT INTO habitante
-(
-id_vivienda,
-nombre,
-apellido_paterno,
-apellido_materno,
-sexo,
-edad,
-fecha_nacimiento,
-estado_civil,
-escolaridad,
-estatura
-)
-VALUES
-(1,'Juan','Perez','Lopez','M',35,'1991-05-01','Casado','Universidad',1.75),
-
-(1,'Maria','Perez','Garcia','F',33,'1993-08-10','Casada','Preparatoria',1.65),
-
-(2,'Carlos','Rodriguez','Martinez','M',26,'2000-01-15','Soltero','Universidad',1.80);
-
-
--- ==========================================
--- CONSULTAS PARA PRUEBAS
--- ==========================================
-
-SELECT * FROM usuario;
-SELECT * FROM municipio;
-SELECT * FROM localidad;
-SELECT * FROM tipo_vivienda;
-SELECT * FROM actividad_economica;
-SELECT * FROM vivienda;
-SELECT * FROM habitante;
-SELECT * FROM habitante_actividad;
-SELECT * FROM vivienda_actividad;
