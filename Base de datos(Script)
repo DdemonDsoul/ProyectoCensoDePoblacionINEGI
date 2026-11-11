@@ -279,29 +279,6 @@ VALUES
 
 (2,'Carlos','Rodriguez','Martinez','M',26,'2000-01-15','Soltero','Universidad',1.80);
 
--- ==========================================
--- ACTIVIDADES DE HABITANTES
--- ==========================================
-
-INSERT INTO habitante_actividad
-(id_habitante,id_actividad,ingreso_mensual)
-VALUES
-(1,8,12000.00),
-(1,1,5000.00),
-(2,3,14000.00),
-(3,4,22000.00);
-
--- ==========================================
--- ACTIVIDADES DE VIVIENDAS
--- ==========================================
-
-INSERT INTO vivienda_actividad
-(id_vivienda,id_actividad)
-VALUES
-(1,8),
-(1,1),
-(2,3),
-(3,4);
 
 -- ==========================================
 -- CONSULTAS PARA PRUEBAS
